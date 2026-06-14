@@ -3,39 +3,49 @@
 @tailwind utilities;
 
 /* ═══════════════════════════════════════════════════
-   Dog&Cat Рыжуля — Стили лендинга
+   Dog&Cat Рыжуля — Urban Dark Style
    ═══════════════════════════════════════════════════ */
 
 :root {
-  --ry-bg: #fdf6ec;
-  --ry-dark: #2b1a0e;
-  --ry-accent: #e8a020;
-  --ry-accent-dark: #c8861a;
-  --ry-card: #f5dec0;
-  --ry-card2: #edd0a0;
-  --ry-text: #2b1a0e;
-  --ry-text-muted: #7a5c3a;
-  --ry-shadow: 0 4px 20px rgba(43, 26, 14, 0.08);
-  --ry-shadow-md: 0 8px 32px rgba(43, 26, 14, 0.14);
-  --ry-radius-card: 16px;
-  --ry-radius-btn: 12px;
+  --ry-bg: #111111;
+  --ry-bg2: #181818;
+  --ry-bg3: #1f1f1f;
+  --ry-dark: #0a0a0a;
+  --ry-accent: #f07800;
+  --ry-accent-dark: #d96800;
+  --ry-accent-light: #ff9520;
+  --ry-card: #222222;
+  --ry-card2: #2a2a2a;
+  --ry-text: #f0f0f0;
+  --ry-text-muted: #888888;
+  --ry-border: rgba(240, 120, 0, 0.15);
+  --ry-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --ry-shadow-md: 0 8px 40px rgba(0, 0, 0, 0.6);
+  --ry-shadow-accent: 0 8px 32px rgba(240, 120, 0, 0.25);
+  --ry-radius-card: 4px;
+  --ry-radius-btn: 3px;
 }
 
 /* Fonts */
 .ry-landing,
 .ry-landing * {
-  font-family: "Inter", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 .ry-hero-title,
 .ry-section-title,
 .ry-master-name,
-.ry-footer-logo {
-  font-family: "Playfair Display", serif;
+.ry-footer-logo,
+.ry-benefit-title,
+.ry-tab,
+.ry-btn,
+.ry-btn-outline {
+  font-family: "Oswald", sans-serif;
 }
 .ry-hero-badge,
 .ry-master-quote,
-.ry-review-text {
-  font-family: "Cormorant", serif;
+.ry-review-text,
+.ry-section-sub {
+  font-family: "Montserrat", sans-serif;
 }
 
 /* ── Base ── */
@@ -59,10 +69,10 @@
   background: var(--ry-bg);
 }
 .ry-section--cream {
-  background: #f0e0c4;
+  background: var(--ry-bg2);
 }
 .ry-section--card {
-  background: var(--ry-card);
+  background: var(--ry-bg3);
 }
 .ry-section--dark {
   background: var(--ry-dark);
@@ -83,33 +93,40 @@
 
 /* ── Titles ── */
 .ry-section-title {
-  font-size: clamp(1.8rem, 4vw, 2.6rem);
-  font-weight: 600;
-  color: var(--ry-dark);
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 700;
+  color: var(--ry-text);
   text-align: center;
   margin-bottom: 0.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 .ry-section-title--white {
   color: #fff;
 }
+.ry-section-title span {
+  color: var(--ry-accent);
+}
 .ry-section-sub {
   text-align: center;
   color: var(--ry-text-muted);
-  font-size: 1rem;
+  font-size: 0.9rem;
   margin-bottom: 2.5rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .ry-section-sub--white {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* ── Buttons ── */
 .ry-btn {
   display: inline-block;
   background: var(--ry-accent);
-  color: var(--ry-dark);
+  color: #fff;
   font-weight: 600;
-  font-size: 1rem;
-  padding: 14px 32px;
+  font-size: 0.95rem;
+  padding: 15px 36px;
   border-radius: var(--ry-radius-btn);
   border: none;
   cursor: pointer;
@@ -120,15 +137,17 @@
     box-shadow 0.2s;
   min-height: 48px;
   line-height: 1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 .ry-btn:hover {
-  background: var(--ry-accent-dark);
+  background: var(--ry-accent-light);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(232, 160, 32, 0.35);
+  box-shadow: var(--ry-shadow-accent);
 }
 .ry-btn--large {
-  padding: 18px 48px;
-  font-size: 1.1rem;
+  padding: 18px 52px;
+  font-size: 1.05rem;
 }
 .ry-btn-outline {
   display: inline-block;
@@ -136,17 +155,19 @@
   color: var(--ry-accent);
   border: 2px solid var(--ry-accent);
   font-weight: 600;
-  font-size: 1rem;
-  padding: 13px 32px;
+  font-size: 0.95rem;
+  padding: 13px 36px;
   border-radius: var(--ry-radius-btn);
   cursor: pointer;
   text-decoration: none;
   transition: all 0.2s;
   min-height: 48px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 .ry-btn-outline:hover {
   background: var(--ry-accent);
-  color: var(--ry-dark);
+  color: #fff;
 }
 
 /* ══════════════════════════════════════
@@ -165,10 +186,10 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(
-    135deg,
-    rgba(43, 26, 14, 0.78) 0%,
-    rgba(43, 26, 14, 0.5) 60%,
-    rgba(43, 26, 14, 0.3) 100%
+    to bottom,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.88) 100%
   );
 }
 .ry-hero-content {
@@ -176,57 +197,67 @@
   z-index: 1;
   text-align: center;
   padding: 40px 24px;
-  max-width: 780px;
+  max-width: 820px;
 }
 .ry-hero-badge {
   display: inline-block;
-  background: rgba(232, 160, 32, 0.2);
-  border: 1px solid rgba(232, 160, 32, 0.5);
-  color: var(--ry-accent);
-  padding: 8px 20px;
-  border-radius: 40px;
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
+  background: var(--ry-accent);
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 0;
+  font-family: "Oswald", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
   margin-bottom: 1.5rem;
-  backdrop-filter: blur(4px);
 }
 .ry-hero-title {
-  font-size: clamp(2.2rem, 6vw, 3.8rem);
+  font-size: clamp(2.4rem, 7vw, 5rem);
   font-weight: 700;
   color: #fff;
-  line-height: 1.15;
+  line-height: 1.05;
   margin-bottom: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 .ry-hero-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--ry-accent);
+  display: block;
 }
 .ry-hero-rating {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
   margin-bottom: 2.5rem;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .ry-stars {
   color: var(--ry-accent);
-  font-size: 1.1rem;
-  letter-spacing: 2px;
+  font-size: 1rem;
+  letter-spacing: 3px;
 }
 .ry-hero-actions {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 24px;
+  gap: 20px;
   flex-wrap: wrap;
 }
 .ry-hero-phone {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.75);
   text-decoration: none;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   transition: color 0.2s;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 .ry-hero-phone:hover {
   color: var(--ry-accent);
@@ -238,38 +269,57 @@
 .ry-benefits {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  gap: 2px;
   margin-top: 2.5rem;
+  border: 2px solid var(--ry-border);
 }
 .ry-benefit-card {
   background: var(--ry-card);
-  border-radius: var(--ry-radius-card);
-  padding: 32px 24px;
+  padding: 36px 24px;
   text-align: center;
-  box-shadow: var(--ry-shadow);
-  transition:
-    transform 0.25s,
-    box-shadow 0.25s;
+  border-right: 2px solid var(--ry-border);
+  transition: background 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.ry-benefit-card::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ry-accent);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.ry-benefit-card:hover::before {
+  transform: scaleX(1);
+}
+.ry-benefit-card:last-child {
+  border-right: none;
 }
 .ry-benefit-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--ry-shadow-md);
+  background: var(--ry-card2);
 }
 .ry-benefit-icon {
-  font-size: 2.2rem;
+  font-size: 2rem;
   margin-bottom: 1rem;
+  display: block;
 }
 .ry-benefit-title {
-  font-family: "Playfair Display", serif;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: var(--ry-dark);
+  margin-bottom: 0.6rem;
+  color: var(--ry-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 .ry-benefit-desc {
-  font-size: 0.88rem;
+  font-size: 0.84rem;
   color: var(--ry-text-muted);
-  line-height: 1.5;
+  line-height: 1.6;
+  font-family: "Roboto", sans-serif;
 }
 
 /* ══════════════════════════════════════
@@ -278,66 +328,82 @@
 .ry-tabs {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 0;
   margin-bottom: 2rem;
+  border: 2px solid var(--ry-border);
+  display: inline-flex;
+  margin: 0 auto 2rem;
+  width: fit-content;
 }
 .ry-tab {
-  padding: 12px 28px;
-  border-radius: 40px;
-  border: 2px solid var(--ry-card2);
-  background: transparent;
+  padding: 13px 36px;
+  border-radius: 0;
+  border: none;
+  border-right: 2px solid var(--ry-border);
+  background: var(--ry-card);
   color: var(--ry-text-muted);
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s;
   min-height: 48px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.ry-tab:last-child {
+  border-right: none;
 }
 .ry-tab--active {
   background: var(--ry-accent);
-  border-color: var(--ry-accent);
-  color: var(--ry-dark);
-  font-weight: 600;
+  color: #fff;
+  font-weight: 700;
 }
 .ry-price-table {
-  max-width: 680px;
+  max-width: 700px;
   margin: 0 auto;
-  border-radius: var(--ry-radius-card);
+  border: 2px solid var(--ry-border);
   overflow: hidden;
-  box-shadow: var(--ry-shadow);
 }
 .ry-price-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 24px;
-  background: #fff;
+  padding: 16px 28px;
+  background: var(--ry-card);
+  border-bottom: 1px solid var(--ry-border);
   transition: background 0.15s;
 }
+.ry-price-row:last-child {
+  border-bottom: none;
+}
 .ry-price-row:hover {
-  background: var(--ry-card);
+  background: var(--ry-card2);
 }
 .ry-price-row--even {
-  background: var(--ry-bg);
+  background: var(--ry-bg3);
 }
 .ry-price-row--even:hover {
-  background: var(--ry-card);
+  background: var(--ry-card2);
 }
 .ry-price-service {
-  font-size: 0.95rem;
-  color: var(--ry-dark);
+  font-size: 0.93rem;
+  color: var(--ry-text);
+  font-family: "Roboto", sans-serif;
 }
 .ry-price-value {
+  font-family: "Oswald", sans-serif;
   font-weight: 600;
-  color: var(--ry-accent-dark);
-  font-size: 1rem;
+  color: var(--ry-accent);
+  font-size: 1.05rem;
   white-space: nowrap;
+  letter-spacing: 0.03em;
 }
 .ry-price-note {
   text-align: center;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   color: var(--ry-text-muted);
   margin-top: 1rem;
+  letter-spacing: 0.04em;
 }
 
 /* ══════════════════════════════════════
@@ -345,18 +411,17 @@
    ══════════════════════════════════════ */
 .ry-gallery {
   columns: 3;
-  column-gap: 16px;
+  column-gap: 4px;
   margin-top: 2rem;
 }
 .ry-gallery-item {
   display: block;
   break-inside: avoid;
-  margin-bottom: 16px;
-  border-radius: var(--ry-radius-card);
+  margin-bottom: 4px;
+  border-radius: 0;
   overflow: hidden;
   cursor: pointer;
   position: relative;
-  box-shadow: var(--ry-shadow);
 }
 .ry-gallery-item--tall img {
   aspect-ratio: 3/4;
@@ -366,15 +431,19 @@
   aspect-ratio: 4/3;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
+  transition:
+    transform 0.4s ease,
+    filter 0.3s;
+  filter: grayscale(20%);
 }
 .ry-gallery-item:hover img {
-  transform: scale(1.05);
+  transform: scale(1.04);
+  filter: grayscale(0%);
 }
 .ry-gallery-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(43, 26, 14, 0.4);
+  background: rgba(240, 120, 0, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -390,7 +459,7 @@
 .ry-lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(43, 26, 14, 0.92);
+  background: rgba(0, 0, 0, 0.95);
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -401,25 +470,27 @@
 .ry-lightbox img {
   max-width: 90vw;
   max-height: 85vh;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border-radius: 0;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  border: 2px solid var(--ry-accent);
 }
 .ry-lightbox-close {
   position: absolute;
   top: 24px;
   right: 24px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--ry-accent);
   border: none;
   color: #fff;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: 0;
   cursor: pointer;
   transition: background 0.2s;
+  font-family: "Oswald", sans-serif;
 }
 .ry-lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--ry-accent-dark);
 }
 
 /* ══════════════════════════════════════
@@ -428,61 +499,76 @@
 .ry-masters {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 2px;
   margin-top: 2.5rem;
 }
 .ry-master-card {
-  background: #fff;
-  border-radius: var(--ry-radius-card);
-  padding: 36px 28px;
+  background: var(--ry-card);
+  padding: 40px 32px;
   text-align: center;
-  box-shadow: var(--ry-shadow);
-  transition:
-    transform 0.25s,
-    box-shadow 0.25s;
+  transition: background 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.ry-master-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--ry-accent);
+  transform: scaleX(0);
+  transition: transform 0.3s;
+}
+.ry-master-card:hover::after {
+  transform: scaleX(1);
 }
 .ry-master-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--ry-shadow-md);
+  background: var(--ry-card2);
 }
 .ry-master-avatar {
   width: 120px;
   height: 120px;
   border-radius: 50%;
-  background: var(--ry-card);
+  background: var(--ry-bg3);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 3rem;
-  margin: 0 auto 1rem;
-  border: 3px solid var(--ry-card2);
+  margin: 0 auto 1.25rem;
+  border: 3px solid var(--ry-accent);
   /* TODO: Фото мастеров — задать background-image */
 }
 .ry-master-name {
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--ry-dark);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ry-text);
   margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
 .ry-master-spec {
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   color: var(--ry-text-muted);
   margin-bottom: 0.25rem;
+  font-family: "Roboto", sans-serif;
 }
 .ry-master-exp {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--ry-accent-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--ry-accent);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
-  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 1.25rem;
+  font-family: "Oswald", sans-serif;
 }
 .ry-master-quote {
-  font-family: "Cormorant", serif;
-  font-size: 1.05rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.88rem;
   font-style: italic;
   color: var(--ry-text-muted);
-  line-height: 1.5;
+  line-height: 1.6;
   border-left: 3px solid var(--ry-accent);
   padding-left: 14px;
   text-align: left;
@@ -513,20 +599,23 @@
   grid-column: 1 / -1;
 }
 .ry-form-group label {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--ry-accent);
+  font-family: "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
 }
 .ry-form-group input,
 .ry-form-group select,
 .ry-form-group textarea {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 12px 16px;
-  color: #fff;
-  font-size: 0.95rem;
-  font-family: "Inter", sans-serif;
+  background: var(--ry-card);
+  border: 1px solid var(--ry-border);
+  border-radius: 0;
+  padding: 13px 18px;
+  color: var(--ry-text);
+  font-size: 0.93rem;
+  font-family: "Roboto", sans-serif;
   transition:
     border-color 0.2s,
     background 0.2s;
@@ -534,28 +623,28 @@
 }
 .ry-form-group input::placeholder,
 .ry-form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--ry-text-muted);
 }
 .ry-form-group select option {
-  background: var(--ry-dark);
-  color: #fff;
+  background: var(--ry-card);
+  color: var(--ry-text);
 }
 .ry-form-group input:focus,
 .ry-form-group select:focus,
 .ry-form-group textarea:focus {
   outline: none;
   border-color: var(--ry-accent);
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--ry-card2);
 }
 .ry-form-group textarea {
   resize: vertical;
-  min-height: 80px;
+  min-height: 90px;
 }
 
 /* Thanks */
 .ry-thanks {
   text-align: center;
-  color: #fff;
+  color: var(--ry-text);
   padding: 60px 0;
 }
 .ry-thanks-icon {
@@ -563,14 +652,17 @@
   margin-bottom: 1rem;
 }
 .ry-thanks h2 {
-  font-family: "Playfair Display", serif;
-  font-size: 2rem;
+  font-family: "Oswald", sans-serif;
+  font-size: 2.4rem;
   margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  color: var(--ry-accent);
+  letter-spacing: 0.06em;
 }
 .ry-thanks p {
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--ry-text-muted);
   margin-bottom: 2rem;
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 /* ══════════════════════════════════════
@@ -583,27 +675,26 @@
   margin-top: 2.5rem;
 }
 .ry-review-card {
-  background: #fff;
-  border-radius: var(--ry-radius-card);
+  background: var(--ry-card);
+  border-radius: 0;
   padding: 28px 24px;
-  box-shadow: var(--ry-shadow);
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  border-top: 4px solid var(--ry-accent);
+  gap: 14px;
+  border-left: 4px solid var(--ry-accent);
   animation: ry-fadeIn 0.4s ease;
 }
 .ry-review-stars {
   color: var(--ry-accent);
-  font-size: 1.1rem;
-  letter-spacing: 2px;
+  font-size: 1rem;
+  letter-spacing: 3px;
 }
 .ry-review-text {
-  font-family: "Cormorant", serif;
-  font-size: 1.05rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
   font-style: italic;
   color: var(--ry-text);
-  line-height: 1.6;
+  line-height: 1.7;
   flex: 1;
 }
 .ry-review-author {
@@ -612,18 +703,24 @@
   gap: 2px;
 }
 .ry-review-author strong {
-  font-size: 0.9rem;
-  color: var(--ry-dark);
+  font-family: "Oswald", sans-serif;
+  font-size: 0.95rem;
+  color: var(--ry-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 .ry-review-author span {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--ry-text-muted);
 }
 .ry-review-source {
-  font-size: 0.75rem;
-  color: var(--ry-text-muted);
-  border-top: 1px solid var(--ry-card);
+  font-size: 0.72rem;
+  color: var(--ry-accent);
+  border-top: 1px solid var(--ry-border);
   padding-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: "Oswald", sans-serif;
 }
 .ry-dots {
   display: flex;
@@ -634,7 +731,7 @@
 .ry-dot {
   width: 10px;
   height: 10px;
-  border-radius: 50%;
+  border-radius: 0;
   border: none;
   background: var(--ry-card2);
   cursor: pointer;
@@ -642,8 +739,8 @@
 }
 .ry-dot--active {
   background: var(--ry-accent);
-  width: 28px;
-  border-radius: 5px;
+  width: 32px;
+  border-radius: 0;
 }
 
 /* ══════════════════════════════════════
@@ -672,28 +769,35 @@
 }
 .ry-contact-item strong {
   display: block;
+  font-family: "Oswald", sans-serif;
   font-weight: 600;
-  color: var(--ry-dark);
+  color: var(--ry-accent);
   margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
 }
 .ry-contact-item p {
   color: var(--ry-text-muted);
-  font-size: 0.95rem;
+  font-size: 0.93rem;
   margin: 0;
-  line-height: 1.6;
+  line-height: 1.7;
 }
 .ry-phone-link {
-  color: var(--ry-accent-dark);
+  color: var(--ry-text);
   text-decoration: none;
-  font-weight: 600;
+  font-family: "Oswald", sans-serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
 }
 .ry-phone-link:hover {
-  text-decoration: underline;
+  color: var(--ry-accent);
 }
 .ry-contacts-map {
-  border-radius: var(--ry-radius-card);
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--ry-shadow-md);
+  border: 2px solid var(--ry-border);
 }
 .ry-map-placeholder {
   height: 400px;
@@ -704,22 +808,25 @@
   justify-content: center;
   gap: 8px;
   color: var(--ry-text-muted);
-  border-radius: var(--ry-radius-card);
 }
 .ry-map-placeholder p {
+  font-family: "Oswald", sans-serif;
   font-weight: 500;
   margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 .ry-map-placeholder small {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 /* ══════════════════════════════════════
    ФУТЕР
    ══════════════════════════════════════ */
 .ry-footer {
-  background: var(--ry-dark);
-  padding: 40px 0;
+  background: #000;
+  padding: 36px 0;
+  border-top: 3px solid var(--ry-accent);
 }
 .ry-footer-inner {
   display: flex;
@@ -729,23 +836,27 @@
   gap: 16px;
 }
 .ry-footer-logo {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 700;
   color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 .ry-footer-logo span {
   color: var(--ry-accent);
 }
 .ry-footer-copy {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.35);
   margin: 0;
+  letter-spacing: 0.04em;
 }
 .ry-footer-link {
-  font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
   text-decoration: none;
   transition: color 0.2s;
+  letter-spacing: 0.04em;
 }
 .ry-footer-link:hover {
   color: var(--ry-accent);

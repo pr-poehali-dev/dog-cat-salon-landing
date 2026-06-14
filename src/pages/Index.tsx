@@ -86,11 +86,14 @@ const REVIEWS = [
 ];
 
 const HERO_IMG =
+  "https://cdn.poehali.dev/projects/7be044cc-c0c5-481e-bfba-545a65d6e2bd/bucket/a7ce57a4-5576-4538-99b2-5a716fadfbf1.png";
+
+const GROOMING_IMG =
   "https://cdn.poehali.dev/projects/7be044cc-c0c5-481e-bfba-545a65d6e2bd/files/6d7628d8-08d0-4bcf-a64d-8cc370727735.jpg";
 
 // TODO: Заменить на реальные фото работ (минимум 9 штук)
 const GALLERY_PHOTOS = Array.from({ length: 9 }, (_, i) => ({
-  src: HERO_IMG,
+  src: GROOMING_IMG,
   alt: `Работа грумера #${i + 1}`,
   tall: i % 3 === 0,
 }));
@@ -129,11 +132,11 @@ function HeroSection() {
     >
       <div className="ry-hero-overlay" />
       <div className="ry-hero-content">
-        <div className="ry-hero-badge">🐾 Зоосалон Dog&Cat Рыжуля</div>
+        <div className="ry-hero-badge">📍 Волгоград · ул. Николая Отрады, 22б</div>
         <h1 className="ry-hero-title">
-          Груминг, который любят
+          Груминг,
           <br />
-          <em>питомцы — и их хозяева</em>
+          <em>которому доверяют</em>
         </h1>
         <div className="ry-hero-rating">
           <span className="ry-stars">★★★★★</span>
@@ -491,8 +494,7 @@ function ContactsSection() {
               <span className="ry-contact-icon">📍</span>
               <div>
                 <strong>Адрес</strong>
-                {/* TODO: Реальный адрес */}
-                <p>г. Москва, ул. Примерная, д. 1</p>
+                <p>г. Волгоград, ул. Николая Отрады, 22б</p>
               </div>
             </div>
             <div className="ry-contact-item">
