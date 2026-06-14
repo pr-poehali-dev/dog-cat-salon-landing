@@ -146,12 +146,190 @@
   margin: 0;
 }
 
+/* ══════════════════════════════════════
+   НАВБАР
+   ══════════════════════════════════════ */
+.ry-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 24px;
+  transition:
+    background 0.35s ease,
+    box-shadow 0.35s ease,
+    padding 0.35s ease;
+  /* старт — прозрачный */
+  background: transparent;
+}
+.ry-navbar--scrolled {
+  background: rgba(10, 10, 10, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 2px 32px rgba(0, 0, 0, 0.6);
+  border-bottom: 1px solid var(--ry-border);
+  padding: 0 24px;
+}
+.ry-navbar-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  gap: 24px;
+}
+
+/* Логотип */
+.ry-navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.ry-navbar-logo-paw {
+  font-size: 1.5rem;
+  animation: ry-pawBounce 2.5s ease-in-out infinite;
+}
+@keyframes ry-pawBounce {
+  0%,
+  100% {
+    transform: rotate(-8deg) scale(1);
+  }
+  50% {
+    transform: rotate(8deg) scale(1.15);
+  }
+}
+.ry-navbar-logo-text {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  display: flex;
+  flex-direction: column;
+}
+.ry-navbar-logo-text span {
+  color: var(--ry-accent);
+}
+.ry-navbar-logo-text em {
+  font-style: normal;
+  font-size: 0.65rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 0.15em;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Ссылки */
+.ry-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex: 1;
+  justify-content: center;
+}
+.ry-navbar-link {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 2px;
+  transition:
+    color 0.2s,
+    background 0.2s;
+  position: relative;
+}
+.ry-navbar-link::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background: var(--ry-accent);
+  transform: scaleX(0);
+  transition: transform 0.25s ease;
+  border-radius: 1px;
+}
+.ry-navbar-link:hover {
+  color: #fff;
+}
+.ry-navbar-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Кнопки справа */
+.ry-navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.ry-navbar-phone {
+  font-family: "Oswald", sans-serif;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.ry-navbar-phone:hover {
+  color: var(--ry-accent);
+}
+
+.ry-navbar-cta {
+  padding: 10px 22px !important;
+  font-size: 0.82rem !important;
+  min-height: 40px !important;
+}
+
+/* Бургер */
+.ry-navbar-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+.ry-navbar-burger span {
+  display: block;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+.ry-navbar-burger.open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.ry-navbar-burger.open span:nth-child(2) {
+  opacity: 0;
+}
+.ry-navbar-burger.open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
 /* ── Base ── */
 .ry-landing {
   background: var(--ry-bg);
   color: var(--ry-text);
   min-height: 100vh;
   overflow-x: hidden;
+  padding-top: 68px; /* компенсация fixed navbar */
 }
 
 .ry-container {
@@ -377,51 +555,117 @@
 }
 
 /* ══════════════════════════════════════
+   СТАТИСТИКА (счётчики)
+   ══════════════════════════════════════ */
+.ry-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 56px;
+}
+.ry-stat-card {
+  position: relative;
+  background: var(--ry-card);
+  border: 1px solid var(--ry-border);
+  padding: 28px 20px 24px;
+  text-align: center;
+  overflow: hidden;
+  transition:
+    border-color 0.3s,
+    transform 0.3s;
+}
+.ry-stat-card:hover {
+  border-color: var(--ry-accent);
+  transform: translateY(-4px);
+}
+/* Светящийся фон */
+.ry-stat-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    rgba(240, 120, 0, 0.12) 0%,
+    transparent 65%
+  );
+  pointer-events: none;
+}
+.ry-stat-icon {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  display: block;
+}
+.ry-stat-number {
+  font-family: "Oswald", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: var(--ry-accent);
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.ry-stat-label {
+  font-size: 0.75rem;
+  color: var(--ry-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* ══════════════════════════════════════
    ПРЕИМУЩЕСТВА
    ══════════════════════════════════════ */
 .ry-benefits {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
-  margin-top: 2.5rem;
-  border: 2px solid var(--ry-border);
+  gap: 16px;
 }
 .ry-benefit-card {
   background: var(--ry-card);
-  padding: 36px 24px;
+  padding: 32px 24px 28px;
   text-align: center;
-  border-right: 2px solid var(--ry-border);
-  transition: background 0.25s;
+  border: 1px solid var(--ry-border);
+  transition:
+    border-color 0.3s,
+    transform 0.3s,
+    background 0.3s;
   position: relative;
   overflow: hidden;
+  cursor: default;
 }
-.ry-benefit-card::before {
-  content: "";
+/* Оранжевая полоска сверху */
+.ry-benefit-accent-line {
   position: absolute;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
   height: 3px;
   background: var(--ry-accent);
   transform: scaleX(0);
-  transition: transform 0.3s;
+  transition: transform 0.35s ease;
+  transform-origin: left;
 }
-.ry-benefit-card:hover::before {
+.ry-benefit-card:hover .ry-benefit-accent-line {
   transform: scaleX(1);
 }
-.ry-benefit-card:last-child {
-  border-right: none;
-}
 .ry-benefit-card:hover {
+  border-color: var(--ry-accent);
   background: var(--ry-card2);
+  transform: translateY(-6px);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px var(--ry-accent);
 }
 .ry-benefit-icon {
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin-bottom: 1rem;
   display: block;
+  transition: transform 0.3s;
+}
+.ry-benefit-card:hover .ry-benefit-icon {
+  transform: scale(1.2) rotate(-5deg);
 }
 .ry-benefit-title {
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 0.6rem;
   color: var(--ry-text);
@@ -429,10 +673,26 @@
   letter-spacing: 0.05em;
 }
 .ry-benefit-desc {
-  font-size: 0.84rem;
+  font-size: 0.82rem;
   color: var(--ry-text-muted);
-  line-height: 1.6;
+  line-height: 1.65;
   font-family: "Roboto", sans-serif;
+  margin-bottom: 1rem;
+}
+/* Стрелка внизу карточки */
+.ry-benefit-arrow {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.1rem;
+  color: var(--ry-accent);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+.ry-benefit-card:hover .ry-benefit-arrow {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 /* ══════════════════════════════════════
@@ -1010,6 +1270,9 @@
   .ry-benefits {
     grid-template-columns: repeat(2, 1fr);
   }
+  .ry-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .ry-masters {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1018,6 +1281,9 @@
   }
   .ry-gallery {
     columns: 2;
+  }
+  .ry-navbar-phone {
+    display: none;
   }
 }
 
@@ -1035,9 +1301,48 @@
     flex-direction: column;
     gap: 14px;
   }
+
+  /* Навбар мобильный */
+  .ry-navbar-links {
+    display: none;
+    position: absolute;
+    top: 68px;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.98);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    padding: 16px 24px 24px;
+    border-bottom: 2px solid var(--ry-border);
+    gap: 4px;
+  }
+  .ry-navbar-links--open {
+    display: flex;
+  }
+  .ry-navbar-link {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--ry-border);
+  }
+  .ry-navbar-link:last-child {
+    border-bottom: none;
+  }
+  .ry-navbar-burger {
+    display: flex;
+  }
+  .ry-navbar-cta {
+    display: none;
+  }
+  .ry-navbar {
+    position: fixed;
+  }
+
   .ry-benefits {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 12px;
+  }
+  .ry-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
   .ry-masters {
     grid-template-columns: 1fr;
@@ -1065,6 +1370,24 @@
   }
   .ry-master-avatar {
     height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ry-benefits {
+    grid-template-columns: 1fr;
+  }
+  .ry-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ry-gallery {
+    columns: 1;
+  }
+  .ry-masters {
+    grid-template-columns: 1fr;
+  }
+  .ry-hero-title {
+    font-size: 1.7rem;
   }
 }
 

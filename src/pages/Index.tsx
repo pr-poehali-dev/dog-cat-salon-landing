@@ -98,6 +98,36 @@ const GALLERY_PHOTOS = Array.from({ length: 9 }, (_, i) => ({
   tall: i % 3 === 0,
 }));
 
+// ─── Хук счётчика цифр ───────────────────────────────────────────────────────
+
+function useCounter(target: number, duration = 1400) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !started.current) {
+        started.current = true;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const p = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - p, 3);
+          setCount(Math.round(target * ease));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.5 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [target, duration]);
+
+  return { ref, count };
+}
+
 // ─── Хук fade-in при скролле ─────────────────────────────────────────────────
 
 function useFadeIn() {
@@ -122,6 +152,68 @@ function useFadeIn() {
   return ref;
 }
 
+// ─── Навбар ───────────────────────────────────────────────────────────────────
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const links = [
+    { label: "Услуги", href: "#booking" },
+    { label: "Цены", href: "#prices" },
+    { label: "Мастера", href: "#masters" },
+    { label: "Контакты", href: "#contacts" },
+  ];
+
+  return (
+    <header className={`ry-navbar ${scrolled ? "ry-navbar--scrolled" : ""}`}>
+      <div className="ry-navbar-inner">
+        {/* Логотип */}
+        <a href="#" className="ry-navbar-logo">
+          <span className="ry-navbar-logo-paw">🐾</span>
+          <span className="ry-navbar-logo-text">
+            Dog<span>&amp;</span>Cat
+            <em>Рыжуля</em>
+          </span>
+        </a>
+
+        {/* Ссылки */}
+        <nav className={`ry-navbar-links ${menuOpen ? "ry-navbar-links--open" : ""}`}>
+          {links.map((l) => (
+            <a key={l.label} href={l.href} className="ry-navbar-link" onClick={() => setMenuOpen(false)}>
+              {l.label}
+            </a>
+          ))}
+        </nav>
+
+        {/* Кнопки */}
+        <div className="ry-navbar-actions">
+          {/* TODO: Реальный номер телефона */}
+          <a href="tel:+70000000000" className="ry-navbar-phone">
+            📞 +7 (000) 000-00-00
+          </a>
+          <a href="#booking" className="ry-btn ry-navbar-cta">
+            Записаться
+          </a>
+          <button
+            className={`ry-navbar-burger ${menuOpen ? "open" : ""}`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Меню"
+          >
+            <span /><span /><span />
+          </button>
+        </div>
+      </div>
+    </header>
+  );
+}
+
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
 function HeroSection() {
@@ -132,7 +224,7 @@ function HeroSection() {
     >
       <div className="ry-hero-overlay" />
       <div className="ry-hero-content">
-        <div className="ry-hero-badge">📍 Волгоград · ул. Николая Отрады, 22б</div>
+        <div className="ry-hero-badge">Профессиональный груминг · Волгоград</div>
         <h1 className="ry-hero-title">
           Груминг,
           <br />
@@ -156,27 +248,56 @@ function HeroSection() {
   );
 }
 
+// ─── Счётчик для цифр ────────────────────────────────────────────────────────
+
+function StatCard({ value, suffix, label, icon }: { value: number; suffix: string; label: string; icon: string }) {
+  const { ref, count } = useCounter(value);
+  return (
+    <div className="ry-stat-card">
+      <div className="ry-stat-glow" />
+      <div className="ry-stat-icon">{icon}</div>
+      <div className="ry-stat-number">
+        <span ref={ref}>{count}</span>{suffix}
+      </div>
+      <div className="ry-stat-label">{label}</div>
+    </div>
+  );
+}
+
 // ─── Преимущества ─────────────────────────────────────────────────────────────
 
 function BenefitsSection() {
   const ref = useFadeIn();
   const items = [
-    { icon: "🎓", title: "Опытные мастера", desc: "Сертифицированные грумеры с опытом от 4 лет" },
-    { icon: "⭐", title: "Рейтинг 5.0", desc: "75 отзывов на Яндекс Картах без единой звезды меньше пяти" },
-    { icon: "📱", title: "Онлайн-запись", desc: "Выбирайте удобное время без звонков и ожидания" },
-    { icon: "🏡", title: "Уютная атмосфера", desc: "Тихий салон без очередей — питомцы расслабляются" },
+    { icon: "🎓", title: "Опытные мастера", desc: "Сертифицированные грумеры с опытом от 4 лет. Проходим обучение и следим за новыми техниками." },
+    { icon: "⭐", title: "Рейтинг 5.0", desc: "75 отзывов на Яндекс Картах. Ни одного негативного — гордимся каждым клиентом." },
+    { icon: "📱", title: "Онлайн-запись", desc: "Выбирайте удобное время без звонков, очередей и ожидания." },
+    { icon: "🏡", title: "Уютная атмосфера", desc: "Тихий салон, успокаивающая музыка — питомцы расслабляются с первых минут." },
   ];
 
   return (
-    <section className="ry-section ry-section--light ry-section--pattern ry-section--bg-text">
+    <section className="ry-section ry-section--light ry-section--pattern ry-section--bg-text" id="benefits">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Почему выбирают нас</h2>
+        <p className="ry-section-sub">Доверие тысяч питомцев и их хозяев</p>
+
+        {/* Цифры-статистика */}
+        <div className="ry-stats">
+          <StatCard value={75}  suffix="+" label="Довольных клиентов" icon="❤️" />
+          <StatCard value={5}   suffix=".0" label="Рейтинг на Яндекс" icon="⭐" />
+          <StatCard value={7}   suffix="+" label="Лет работаем" icon="🏆" />
+          <StatCard value={100} suffix="%" label="Безопасные средства" icon="🛡️" />
+        </div>
+
+        {/* Карточки */}
         <div className="ry-benefits">
-          {items.map((item) => (
-            <div key={item.title} className="ry-benefit-card">
+          {items.map((item, i) => (
+            <div key={item.title} className="ry-benefit-card" style={{ animationDelay: `${i * 0.1}s` }}>
+              <div className="ry-benefit-accent-line" />
               <div className="ry-benefit-icon">{item.icon}</div>
               <h3 className="ry-benefit-title">{item.title}</h3>
               <p className="ry-benefit-desc">{item.desc}</p>
+              <div className="ry-benefit-arrow">→</div>
             </div>
           ))}
         </div>
@@ -192,7 +313,7 @@ function PricesSection() {
   const ref = useFadeIn();
 
   return (
-    <section className="ry-section ry-section--cream ry-section--pattern">
+    <section className="ry-section ry-section--cream ry-section--pattern" id="prices">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Прайс-лист</h2>
         <p className="ry-section-sub">Стоимость зависит от породы и состояния шерсти</p>
@@ -286,7 +407,7 @@ function MastersSection() {
   const ref = useFadeIn();
 
   return (
-    <section className="ry-section ry-section--card ry-section--geo">
+    <section className="ry-section ry-section--card ry-section--geo" id="masters">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Наши мастера</h2>
         <p className="ry-section-sub">Любят животных — и умеют с ними работать</p>
@@ -490,7 +611,7 @@ function ContactsSection() {
   const ref = useFadeIn();
 
   return (
-    <section className="ry-section ry-section--cream">
+    <section className="ry-section ry-section--cream" id="contacts">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Как нас найти</h2>
         <div className="ry-contacts">
@@ -558,6 +679,7 @@ function Footer() {
 export default function Index() {
   return (
     <div className="ry-landing">
+      <Navbar />
       <HeroSection />
       <hr className="ry-divider" />
       <BenefitsSection />
