@@ -29,21 +29,21 @@ const MASTERS = [
     spec: "Кошки и мелкие породы собак",
     exp: "7 лет опыта",
     quote: "Каждый питомец — маленькая звезда. Я просто помогаю ей засиять.",
-    emoji: "👩‍🦰",
+    photo: "https://cdn.poehali.dev/projects/7be044cc-c0c5-481e-bfba-545a65d6e2bd/files/8988b501-e857-4823-aa01-6e3065943c91.jpg",
   },
   {
     name: "Михаил Громов",
     spec: "Крупные породы, тримминг",
     exp: "5 лет опыта",
     quote: "Работаю не спеша — животные это чувствуют и не боятся.",
-    emoji: "👨‍🦱",
+    photo: "https://cdn.poehali.dev/projects/7be044cc-c0c5-481e-bfba-545a65d6e2bd/files/3037c242-0afc-4b1e-9822-78863c85ab24.jpg",
   },
   {
     name: "Дарья Лис",
     spec: "Стрижки, окрас, SPA-уход",
     exp: "4 года опыта",
     quote: "После моих процедур хозяева говорят: «Это уже другой пёс!»",
-    emoji: "👩‍🦳",
+    photo: "https://cdn.poehali.dev/projects/7be044cc-c0c5-481e-bfba-545a65d6e2bd/files/9fbc60a8-f379-4fa7-85e7-5c9570933fc4.jpg",
   },
 ];
 
@@ -168,7 +168,7 @@ function BenefitsSection() {
   ];
 
   return (
-    <section className="ry-section ry-section--light">
+    <section className="ry-section ry-section--light ry-section--pattern ry-section--bg-text">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Почему выбирают нас</h2>
         <div className="ry-benefits">
@@ -192,36 +192,37 @@ function PricesSection() {
   const ref = useFadeIn();
 
   return (
-    <section className="ry-section ry-section--cream">
+    <section className="ry-section ry-section--cream ry-section--pattern">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Прайс-лист</h2>
-        <div className="ry-tabs">
-          <button
-            className={`ry-tab ${tab === "dogs" ? "ry-tab--active" : ""}`}
-            onClick={() => setTab("dogs")}
-          >
-            🐶 Собаки
-          </button>
-          <button
-            className={`ry-tab ${tab === "cats" ? "ry-tab--active" : ""}`}
-            onClick={() => setTab("cats")}
-          >
-            🐱 Кошки
-          </button>
-        </div>
-        <div className="ry-price-table">
-          {PRICES[tab].map((row, i) => (
-            <div key={i} className={`ry-price-row ${i % 2 === 0 ? "ry-price-row--even" : ""}`}>
-              <span className="ry-price-service">{row.service}</span>
-              <span className="ry-price-value">{row.price}</span>
-            </div>
-          ))}
-        </div>
-        <p className="ry-price-note">
-          Точная стоимость зависит от породы и состояния шерсти — уточним при записи
-        </p>
-        <div style={{ textAlign: "center", marginTop: "2rem" }}>
-          <a href="#booking" className="ry-btn">Записаться на услугу</a>
+        <p className="ry-section-sub">Стоимость зависит от породы и состояния шерсти</p>
+        <div className="ry-price-wrapper">
+          <div className="ry-tabs-row">
+            <button
+              className={`ry-tab ${tab === "dogs" ? "ry-tab--active" : ""}`}
+              onClick={() => setTab("dogs")}
+            >
+              🐶 Собаки
+            </button>
+            <button
+              className={`ry-tab ${tab === "cats" ? "ry-tab--active" : ""}`}
+              onClick={() => setTab("cats")}
+            >
+              🐱 Кошки
+            </button>
+          </div>
+          <div className="ry-price-table">
+            {PRICES[tab].map((row, i) => (
+              <div key={i} className={`ry-price-row ${i % 2 === 0 ? "ry-price-row--even" : ""}`}>
+                <span className="ry-price-service">{row.service}</span>
+                <span className="ry-price-value">{row.price}</span>
+              </div>
+            ))}
+          </div>
+          <div className="ry-price-footer">
+            <p className="ry-price-note">Точная цена уточняется при записи</p>
+            <a href="#booking" className="ry-btn">Записаться на услугу</a>
+          </div>
         </div>
       </div>
     </section>
@@ -285,19 +286,23 @@ function MastersSection() {
   const ref = useFadeIn();
 
   return (
-    <section className="ry-section ry-section--card">
+    <section className="ry-section ry-section--card ry-section--geo">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Наши мастера</h2>
         <p className="ry-section-sub">Любят животных — и умеют с ними работать</p>
         <div className="ry-masters">
           {MASTERS.map((m) => (
             <div key={m.name} className="ry-master-card">
-              {/* TODO: Фото мастеров */}
-              <div className="ry-master-avatar">{m.emoji}</div>
-              <h3 className="ry-master-name">{m.name}</h3>
-              <p className="ry-master-spec">{m.spec}</p>
-              <p className="ry-master-exp">{m.exp}</p>
-              <blockquote className="ry-master-quote">«{m.quote}»</blockquote>
+              <div
+                className="ry-master-avatar"
+                style={{ backgroundImage: `url(${m.photo})` }}
+              />
+              <div className="ry-master-info">
+                <h3 className="ry-master-name">{m.name}</h3>
+                <p className="ry-master-spec">{m.spec}</p>
+                <p className="ry-master-exp">{m.exp}</p>
+                <blockquote className="ry-master-quote">«{m.quote}»</blockquote>
+              </div>
             </div>
           ))}
         </div>
@@ -444,7 +449,7 @@ function ReviewsSection() {
   const visible = Array.from({ length: perPage }, (_, i) => REVIEWS[(current + i) % REVIEWS.length]);
 
   return (
-    <section className="ry-section ry-section--light">
+    <section className="ry-section ry-section--light ry-section--geo">
       <div className="ry-container ry-fade" ref={ref}>
         <h2 className="ry-section-title">Отзывы клиентов</h2>
         <p className="ry-section-sub">Яндекс Карты · рейтинг 5.0 · 75 отзывов</p>
@@ -554,12 +559,19 @@ export default function Index() {
   return (
     <div className="ry-landing">
       <HeroSection />
+      <hr className="ry-divider" />
       <BenefitsSection />
+      <hr className="ry-divider" />
       <PricesSection />
+      <hr className="ry-divider" />
       <GallerySection />
+      <hr className="ry-divider" />
       <MastersSection />
+      <hr className="ry-divider" />
       <BookingSection />
+      <hr className="ry-divider" />
       <ReviewsSection />
+      <hr className="ry-divider" />
       <ContactsSection />
       <Footer />
     </div>
